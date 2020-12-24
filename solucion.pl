@@ -5,7 +5,9 @@ banda(losEscarabajos, 1960, losPiletones, [juan, pablo, jorge, ricardo]).
 banda(plastica, 1983, palermoHollywood, [jaime, kirk, rober, lars]).
 banda(oceania, 1978, lasHeras, [jose, juanito, juancito, mic, ian]).
 banda(brazoFuerte, 1914, nuevaOrleans, [luis]).
-banda(rodrigo,1986,cordoba,[rodrigo]).
+banda(redHotChiliPeppers,1983,california,[anthony,chad,flea,john]).
+banda(beatles,1962,liverpool,[john,paul,george,ringo]).
+%banda(rodrigo,1986,cordoba,[rodrigo]).
 
 %genero(NombreBanda, Genero).
 genero(finta, pop(20, 7)).
@@ -13,7 +15,9 @@ genero(losEscarabajos, rock(mixto ,60)).
 genero(plastica, rock(heavy, 80)).
 genero(oceania, rock(glam, 80)).
 genero(brazoFuerte, jazz([trompeta, corneta])).
-genero(rodrigo,cuarteto).
+genero(beatles,pop(100,21)).
+genero(redHotChiliPeppers,rock(mixto,90)).
+%genero(rodrigo,cuarteto).
 
 %pop(CantidadDeHits, CantidadDeDiscos)
 %rock(TipoDeRock, Decada)
@@ -24,6 +28,7 @@ genero(rodrigo,cuarteto).
 %festival(Festival,Localidad).
 festival(mangueraMusmanoRockFestival,cordoba).
 festival(nueveAuxilios,haedo).
+festival(festivalazo,sanIsidro).
 
 %bandaConfirmada(Banda,Festival).
 bandaConfirmada(aloeVera,mangueraMusmanoRockFestival).
@@ -34,6 +39,9 @@ bandaConfirmada(cantoRodado,nueveAuxilios).
 bandaConfirmada(lasLiendres,nueveAuxilios).
 bandaConfirmada(juanPrincipe,nueveAuxilios).
 bandaConfirmada(fluidoVerde,nueveAuxilios).
+
+bandaConfirmada(beatles,festivalazo).
+bandaConfirmada(redHotChiliPeppers,festivalazo).
 
 %2 esExitosa/1
 
@@ -54,7 +62,7 @@ leConvieneParticipar(Banda,Festival):-banda(Banda,_,Localidad,_),festival(Festiv
 noParticipa(Banda,Festival):-not(bandaConfirmada(Banda,Festival)).
 
 %5 seGraba/1
-seGraba(Festival):-festival(Festival,_,Bandas),forall(member(Banda,Bandas),seraEterna(Banda)).
+seGraba(Festival):-festival(Festival,_),forall(bandaConfirmada(Banda,Festival),seraEterna(Banda)).
 
 %6 anioHistorico/1
 anioHistorico(Anio):-banda(_,Anio,_,_),findall(Banda,seFormoEn(Banda,Anio),Bandas),length(Bandas,BandasFormadas),BandasFormadas > 10.
